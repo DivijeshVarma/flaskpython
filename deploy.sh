@@ -11,16 +11,12 @@ echo "Beginning deployment..."
 # Stop the existing application instance
 sudo pkill -9 python3
 
-# Remove the old application directory to ensure a clean slate
-echo "Removing old application directory..."
-sudo rm -rf "$APP_DIR/flaskpython"
-
 # Clone the repository
 echo "Cloning the repository from $REPO_URL..."
 git clone "$REPO_URL" "$APP_DIR"
 
 # Navigate into the application directory
-cd "$APP_DIR/flaskpython"
+cd "$APP_DIR"
 
 # Install Node.js dependencies
 echo "Installing Node.js dependencies..."

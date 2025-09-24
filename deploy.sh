@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# A simple script to deploy a Node.js application to a Linux VM by cloning a git repository.
+# A simple script for a clean Python deployment on a Linux VM.
 
 # Set the target directory for the application
 APP_DIR="/home/divijesh/python"
@@ -11,8 +11,9 @@ echo "Beginning deployment..."
 # Stop the existing application instance
 sudo pkill -9 python3
 
-# Clone the repository
-echo "Cloning the repository from $REPO_URL..."
+# Remove the old application directory and its contents
+echo "Removing old application directory contents..."
+sudo rm -rf "$APP_DIR"
 git clone "$REPO_URL" "$APP_DIR"
 
 # Navigate into the application directory
@@ -23,7 +24,7 @@ echo "Installing Node.js dependencies..."
 python3 -m venv venv
 
 # deploy app
-source venv/bin/activate
+. venv/bin/activate
 
 python3 -m pip install -r requirements.txt
 

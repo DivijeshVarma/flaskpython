@@ -22,8 +22,6 @@ cd "$APP_DIR"
 
 sudo apt install python3.11-venv
 
-# Install Node.js dependencies
-echo "Installing Node.js dependencies..."
 python3 -m venv venv
 
 # deploy app

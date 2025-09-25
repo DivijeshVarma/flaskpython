@@ -14,6 +14,7 @@ sudo pkill -9 python3
 # Remove the old application directory and its contents
 echo "Removing old application directory contents..."
 sudo rm -rf "$APP_DIR"
+mkdir "$APP_DIR"
 git clone "$REPO_URL" "$APP_DIR"
 
 # Navigate into the application directory

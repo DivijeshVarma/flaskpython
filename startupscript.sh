@@ -2,3 +2,4 @@
 sudo apt update
 sudo apt install -y git
 sudo apt install -y python3.11-venv
+mkdir /home/divijesh/python

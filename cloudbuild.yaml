@@ -3,7 +3,19 @@ steps:
     args:
       - '-c'
       - >
-        vmlist=$(gcloud compute instances list --format='value(name)' --filter="labels.${_VM_LABEL_KEY}:${_VM_LABEL_VALUE} AND status:RUNNING") && for vm in $vmlist; do gcloud compute ssh cloudbuild@$vm --zone $(gcloud compute instances list --format='value(zone)' --filter="name='$vm'") --quiet -- 'sudo gsutil cp gs://afsgfsgs123qw/deploy.sh . && sudo chmod +x deploy.sh && sudo sh deploy.sh'; done
+        vmlist=$(gcloud compute instances list --format='value(name)' --filter="labels.${_VM_LABEL_KEY}:${_VM_LABEL_VALUE} AND status:RUNNING") && 
+        for vm in $vmlist; do 
+          gcloud compute ssh cloudbuild@$vm --zone $(gcloud compute instances list --format='value(zone)' --filter="name='$vm'") --quiet -- '
+            # 1. Copy the script
+            sudo gsutil cp gs://afsgfsgs123qw/deploy.sh . && 
+            # 2. Fix line endings (Convert DOS to Unix)
+            sudo tr -d "\r" < deploy.sh > deploy_fixed.sh && 
+            # 3. Make the fixed script executable
+            sudo chmod +x deploy_fixed.sh && 
+            # 4. Execute the fixed script
+            sudo sh deploy_fixed.sh
+          '; 
+        done
     entrypoint: bash
 options:
   logging: CLOUD_LOGGING_ONLY
